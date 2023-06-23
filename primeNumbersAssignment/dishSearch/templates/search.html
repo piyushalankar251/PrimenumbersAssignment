@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dish Search</title>
+    <style>
+        body {
+            background: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .results table {
+            width: 100%;
+        }
+
+        .results th, .results td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="glass search-bar">
+        <form method="GET" action="{% url 'search' %}">
+            <input type="text" name="q" placeholder="Enter dish name">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+    {% if results %}
+    <div class="glass results">
+        <table>
+            <thead>
+                <tr>
+                    <th>Restaurant</th>
+                    <th>Dish</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <!-- ... -->
+<tbody>
+  {% for result in results %}
+  <tr>
+      <td>{{ result.restaurant }}</td>
+      <td>{{ result.item|title }}</td>
+      <td>{{ result.price }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+<!-- ... -->
+
+        </table>
+    </div>
+    {% else %}
+    <div class="glass">
+        <p>No results found</p>
+    </div>
+    {% endif %}
+</body>
+</html>
